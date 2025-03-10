@@ -27,15 +27,15 @@ provider "cloudinit" {
 }
 
 resource "azurerm_resource_group" "cst8918" {
-  name     = "cst8918-H09"
-  location = "East US"
+  name     = "${var.labelPrefix}cst8918-H09"
+  location = var.region
 }
 
 resource "azurerm_kubernetes_cluster" "cst8918" {
-  name                = "cst8918-H09-aks"
+  name                = "${var.labelPrefix}cst8918-H09-aks"
   location            = azurerm_resource_group.cst8918.location
   resource_group_name = azurerm_resource_group.cst8918.name
-  dns_prefix          = "cst8918-h09-aks-dns"
+  dns_prefix          = "${var.labelPrefix}cst8918-h09-aks-dns"
 
   default_node_pool {
     name       = "default"
